@@ -1,3 +1,4 @@
+from src.laugh_detector import LaughDetector
 import sys
 import cv2
 import argparse
@@ -23,9 +24,11 @@ def main():
     args = build_argparser().parse_args()
 
     cap = cv2.VideoCapture(0)
+    detector = LaughDetector()
 
     while True:
         ret, frame = cap.read()
+        frame = detector.process(frame)
         cv2.imshow('frame', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
